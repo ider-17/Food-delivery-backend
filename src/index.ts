@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
+import { Food } from "./schema/Food";
 
-const port = 3000;
+const port = 3001;
 const app = express();
 
 app.use(express.json())
@@ -39,40 +40,52 @@ const foods = [
     }
 ]
 
-app.get('/', (_req: Request, res: Response) => {
-    res.json({ message: "hello" });
-});
+// app.get('/', (_req: Request, res: Response) => {
+//     res.json({ message: "hello" });
+// });
 
-app.get("/foods", (_req: Request, res: Response) => {
+app.get("/foods", async (_req: Request, res: Response) => {
+    const foods = await Food.find();
     res.json({ success: true, foods });
 });
 
-app.get("/foods/:id", (req, res) => {
-    const { id } = req.params;
-
-    const food = foods.find((food) => food._id === Number(id));
-
-    if (!food) {
-        res.status(404).json({ success: false, message: "Food not found" });
-        return
-    }
-    res.json({ success: true, food });
-})
-
-app.put("/foods/:id", (req, res) => {
-    const { id } = req.params;
-
+app.post('/food', async (req, res) => {
+    const food = await Food.create(req.body);
     console.log(req.body);
+    res.json({ success: true, food })
+});
 
-    foods.filter((food, index) => {
-        if (food._id === Number(id)) {
-            const updateFood = { ...food, ...req.body };
-            foods[index] = updateFood;
-        }
-    });
-    console.log(foods)
-    res.json({ success: true, foods });
-})
+// app.get("/foods/:id", (req, res) => {
+//     const { id } = req.params;
+
+//     const food = foods.find((food) => food._id === Number(id));
+
+//     if (!food) {
+//         res.status(404).json({ success: false, message: "Food not found" });
+//         return
+//     }
+//     res.json({ success: true, food });
+// })
+
+// app.put("/foods/:id", (req, res) => {
+//     const { id } = req.params;
+
+//     console.log(req.body);
+
+//     foods.filter((food, index) => {
+//         if (food._id === Number(id)) {
+//             const updateFood = { ...food, ...req.body };
+//             foods[index] = updateFood;
+//         }
+//     });
+//     console.log(foods)
+//     res.json({ success: true, foods });
+// })
+
+// app.post("/foods", (req, res) => {
+//     console.log(req.body)
+//     res.send(req.body)
+// });
 
 app.listen(port, async () => {
     const connectDb = async () => {

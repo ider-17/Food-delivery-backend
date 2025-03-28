@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const Food = new mongoose.Schema({
-    foodname: String,
+const FoodSchema = new mongoose.Schema({
+    foodName: String,
     price: Number,
     image: String,
     ingredients: String,
@@ -9,4 +9,4 @@ const Food = new mongoose.Schema({
     updatedAt: Date
 });
 
-export const FoodSchema = mongoose.model('food', Food)
+export const Food = mongoose.model('food', FoodSchema);

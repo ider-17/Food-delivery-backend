@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Food } from "./schema/Food";
 
-const port = 3001;
+const PORT = 8000;
 const app = express();
 
 app.use(express.json())
@@ -55,17 +55,17 @@ app.post('/food', async (req, res) => {
     res.json({ success: true, food })
 });
 
-// app.get("/foods/:id", (req, res) => {
-//     const { id } = req.params;
+app.get("/foods/:id", (req, res) => {
+    const { id } = req.params;
 
-//     const food = foods.find((food) => food._id === Number(id));
+    const food = foods.find((food) => food._id === Number(id));
 
-//     if (!food) {
-//         res.status(404).json({ success: false, message: "Food not found" });
-//         return
-//     }
-//     res.json({ success: true, food });
-// })
+    if (!food) {
+        res.status(404).json({ success: false, message: "Food not found" });
+        return
+    }
+    res.json({ success: true, food });
+})
 
 // app.put("/foods/:id", (req, res) => {
 //     const { id } = req.params;
@@ -87,7 +87,7 @@ app.post('/food', async (req, res) => {
 //     res.send(req.body)
 // });
 
-app.listen(port, async () => {
+app.listen(PORT, async () => {
     const connectDb = async () => {
         try {
             await mongoose.connect(
@@ -102,5 +102,5 @@ app.listen(port, async () => {
 
     connectDb();
 
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${PORT}`);
 });

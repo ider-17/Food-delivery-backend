@@ -5,8 +5,6 @@ const FoodSchema = new mongoose.Schema({
     price: Number,
     image: String,
     ingredients: String,
-    createdAt: Date,
-    updatedAt: Date
 });
 
 export const Food = mongoose.model('food', FoodSchema);

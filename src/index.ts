@@ -44,10 +44,10 @@ const foods = [
 //     res.json({ message: "hello" });
 // });
 
-app.get("/foods", async (_req: Request, res: Response) => {
-    const foods = await Food.find();
-    res.json({ success: true, foods });
-});
+// app.get("/foods", async (_req: Request, res: Response) => {
+//     const foods = await Food.find();
+//     res.json({ success: true, foods });
+// });
 
 app.post('/food', async (req, res) => {
     const food = await Food.create(req.body);
@@ -55,10 +55,15 @@ app.post('/food', async (req, res) => {
     res.json({ success: true, food })
 });
 
-app.get("/foods/:id", (req, res) => {
+app.get("/food", async (_req, res) => {
+    const food = await Food.find();
+    res.json({ success: true, food });
+});
+
+app.put("/food:id", (req, res) => {
     const { id } = req.params;
 
-    const food = foods.find((food) => food._id === Number(id));
+    const food = Food.find((f) => f._id === Number(id));
 
     if (!food) {
         res.status(404).json({ success: false, message: "Food not found" });
@@ -66,6 +71,18 @@ app.get("/foods/:id", (req, res) => {
     }
     res.json({ success: true, food });
 })
+
+// app.get("/foods/:id", (req, res) => {
+//     const { id } = req.params;
+
+//     const food = foods.find((food) => food._id === Number(id));
+
+//     if (!food) {
+//         res.status(404).json({ success: false, message: "Food not found" });
+//         return
+//     }
+//     res.json({ success: true, food });
+// })
 
 // app.put("/foods/:id", (req, res) => {
 //     const { id } = req.params;
@@ -91,7 +108,7 @@ app.listen(PORT, async () => {
     const connectDb = async () => {
         try {
             await mongoose.connect(
-                "mongodb+srv://ider7037:ider7037@cluster0.ptddjeo.mongodb.net/"
+                ""
             );
 
             console.log("Database connection success");

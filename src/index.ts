@@ -1,11 +1,18 @@
-import express, { Request, Response } from "express";
-import mongoose from "mongoose";
+import express from "express";
+import dotenv from 'dotenv';
 import { Food } from "./schema/Food";
+import { foodRouter } from "./routes/food";
+import { connection } from "./utils/connection";
 
-const PORT = 8000;
+dotenv.config();
+
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
+
+const PORT = 8000;
+
+app.use('/api/v1/food', foodRouter);
 
 const foods = [
     {
@@ -49,28 +56,28 @@ const foods = [
 //     res.json({ success: true, foods });
 // });
 
-app.post('/food', async (req, res) => {
+app.post('/foods', async (req, res) => {
     const food = await Food.create(req.body);
     console.log(req.body);
     res.json({ success: true, food })
 });
 
-app.get("/food", async (_req, res) => {
+app.get("/foods", async (_req, res) => {
     const food = await Food.find();
     res.json({ success: true, food });
 });
 
-app.put("/food:id", (req, res) => {
-    const { id } = req.params;
+// app.put("/food:id", (req, res) => {
+//     const { id } = req.params;
 
-    const food = Food.find((f) => f._id === Number(id));
+//     const food = Food.find((f) => f._id === Number(id));
 
-    if (!food) {
-        res.status(404).json({ success: false, message: "Food not found" });
-        return
-    }
-    res.json({ success: true, food });
-})
+//     if (!food) {
+//         res.status(404).json({ success: false, message: "Food not found" });
+//         return
+//     }
+//     res.json({ success: true, food });
+// })
 
 // app.get("/foods/:id", (req, res) => {
 //     const { id } = req.params;
@@ -105,19 +112,6 @@ app.put("/food:id", (req, res) => {
 // });
 
 app.listen(PORT, async () => {
-    const connectDb = async () => {
-        try {
-            await mongoose.connect(
-                ""
-            );
-
-            console.log("Database connection success");
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    connectDb();
-
+    await connection();
     console.log(`Server is running on port ${PORT}`);
 });

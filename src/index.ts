@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { Food } from "./schema/Food";
 import { foodRouter } from "./routes/food";
 import { connection } from "./utils/connection";
+import { categoryRouter } from "./routes/category";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 const PORT = 8000;
 
 app.use('/api/v1/food', foodRouter);
+app.use("/api/v1/category", categoryRouter);
 
 const foods = [
     {
@@ -47,6 +49,22 @@ const foods = [
     }
 ]
 
+// app.put("/api/v1/food/:id", async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const food = await Food.findByIdAndUpdate(id, req.body);
+//         if (!food) {
+//             res.status(404).json({ message: "Food not found" });
+//         }
+//         // const updatedFood = await Food.findById(id);
+//         res.status(200).json({ message: "Food updated successfully" });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }
+
+// })
+
+
 // app.get('/', (_req: Request, res: Response) => {
 //     res.json({ message: "hello" });
 // });
@@ -56,16 +74,16 @@ const foods = [
 //     res.json({ success: true, foods });
 // });
 
-app.post('/foods', async (req, res) => {
-    const food = await Food.create(req.body);
-    console.log(req.body);
-    res.json({ success: true, food })
-});
+// app.post('/foods', async (req, res) => {
+//     const food = await Food.create(req.body);
+//     console.log(req.body);
+//     res.json({ success: true, food })
+// });
 
-app.get("/foods", async (_req, res) => {
-    const food = await Food.find();
-    res.json({ success: true, food });
-});
+// app.get("/foods", async (_req, res) => {
+//     const food = await Food.find();
+//     res.json({ success: true, food });
+// });
 
 // app.put("/food:id", (req, res) => {
 //     const { id } = req.params;

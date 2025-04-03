@@ -1,8 +1,9 @@
 import express from "express";
-import { createCategory, getCategoryes } from "../controller/category";
+import { createCategory, getCategories, getCategoriesWithFoods } from "../controller/category";
+import { get } from "mongoose";
 
 const categoryRouter = express.Router();
 
-categoryRouter.post("/", createCategory).get("/", getCategoryes);
+categoryRouter.post("/", createCategory).get("/", getCategories).get("/with-foods", getCategoriesWithFoods);
 
 export { categoryRouter };

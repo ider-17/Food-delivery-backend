@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from 'dotenv';
-import { Food } from "./schema/Food";
 import { foodRouter } from "./routes/food";
 import { connection } from "./utils/connection";
 import { categoryRouter } from "./routes/category";
@@ -13,8 +12,8 @@ app.use(express.json());
 
 const PORT = 8000;
 
-app.use('/api/v1/food', foodRouter);
-app.use("/api/v1/category", categoryRouter);
+app.use('/api/v1/foods', foodRouter);
+app.use("/api/v1/categories", categoryRouter);
 
 const foods = [
     {

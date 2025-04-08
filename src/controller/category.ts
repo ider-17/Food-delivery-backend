@@ -34,3 +34,19 @@ export const getCategoriesWithFoods = async (_request, response) => {
         response.status(404).json({ success: true, error: error.message });
     }
 };
+
+export const deleteCategory = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deleteCategory = await Category.findByIdAndDelete(id);
+
+        if (!deleteCategory) {
+            return res.status(404).json({ success: false, message: "Category not found" })
+        }
+        return res.json({ success: true, message: "Category deleted successfully" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+}

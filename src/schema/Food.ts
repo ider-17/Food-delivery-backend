@@ -9,6 +9,7 @@ const FoodSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    description: String,
     category: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "category",

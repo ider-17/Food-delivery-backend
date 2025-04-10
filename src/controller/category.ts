@@ -3,16 +3,6 @@ import jwt from "jsonwebtoken";
 
 export const createCategory = async (request, response) => {
     try {
-
-        if (!request.headers["authorization"]) {
-            response.status(401).json({ success: false, msg: "Unauthorization" });
-            return;
-        }
-
-        const [_, token] = request.headers["authorization"].split(" ");
-
-        const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY);
-
         const created = await Category.create(request.body);
 
         response.json({ success: true, category: created });

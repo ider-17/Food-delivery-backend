@@ -8,6 +8,3 @@ const categoryRouter = express.Router();
 categoryRouter.post("/", checkToken, createCategory).get("/", getCategories).get("/with-foods", getCategoriesWithFoods).delete("/:id", deleteCategory);
 
 export { categoryRouter };
-
-// asdansda
-// asdasdadsd

@@ -134,5 +134,3 @@ app.listen(PORT, async () => {
     await connection();
     console.log(`Server is running on port ${PORT}`);
 });
-
-// klsdjafadslfjsladkjfkl

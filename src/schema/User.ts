@@ -10,17 +10,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    phoneNumber: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
-    address: {
-        type: String,
-    },
+    // phoneNumber: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // },
+    // address: {
+    //     type: String,
+    // },
     role: {
         type: String,
         enumb: ["ADMIN", "USER"],
+        default: "USER"
     }
 },
     {

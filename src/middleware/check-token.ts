@@ -17,6 +17,7 @@ export const checkToken = async (req, res, next) => {
         }
 
         next();
+        
     } catch (error) {
         res.status(401).json({ success: false, error: error.message });
     }

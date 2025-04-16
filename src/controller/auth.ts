@@ -16,10 +16,13 @@ export const register = async (req, res) => {
         const user = await User.create({ ...req.body, password: hash });
 
         res.json({ success: true, user });
+
     } catch (error) {
         if (error.code == 11000) {
             res.status(400).json({ success: false, error: "User exist" });
             return;
+        } else {
+            console.log(error)
         }
     }
 };

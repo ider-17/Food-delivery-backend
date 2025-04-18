@@ -18,11 +18,10 @@ export const register = async (req, res) => {
         res.json({ success: true, user });
 
     } catch (error) {
+        console.log(error)
         if (error.code == 11000) {
             res.status(400).json({ success: false, error: "User exist" });
             return;
-        } else {
-            console.log(error)
         }
     }
 };
